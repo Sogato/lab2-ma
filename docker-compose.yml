@@ -14,14 +14,10 @@ services:
     restart: always
     image: postgres:15.4
     env_file: ./microservice1/.pg.env
-    ports:
-      - 5432:5432
   microservice2_bd:
     restart: always
     image: postgres:15.4
     env_file: ./microservice2/.pg.env
-    ports:
-      - 5433:5432
   microservice1_web:
     restart: always
     build:
@@ -31,7 +27,7 @@ services:
     depends_on:
       - microservice1_bd
     ports:
-      - 8081:8000
+      - 8001:8000
   microservice2_web:
     restart: always
     build:
@@ -41,4 +37,4 @@ services:
     depends_on:
       - microservice2_bd
     ports:
-      - 8082:8000
+      - 8002:8000
