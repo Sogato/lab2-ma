@@ -2,7 +2,6 @@ version: '3.9'
 
 services:
   nginx:
-    restart: always
     build:
       context: ./nginx
     depends_on:
@@ -10,31 +9,19 @@ services:
       - microservice2_web
     ports:
       - 80:80
-  microservice1_bd:
-    restart: always
-    image: postgres:15.4
-    env_file: ./microservice1/.pg.env
-  microservice2_bd:
-    restart: always
-    image: postgres:15.4
-    env_file: ./microservice2/.pg.env
+
   microservice1_web:
-    restart: always
     build:
       context: ./microservice1
     volumes:
       - .:/microservice1/
-    depends_on:
-      - microservice1_bd
     ports:
       - 8001:8000
+
   microservice2_web:
-    restart: always
     build:
       context: ./microservice2
     volumes:
       - .:/microservice2/
-    depends_on:
-      - microservice2_bd
     ports:
       - 8002:8000
